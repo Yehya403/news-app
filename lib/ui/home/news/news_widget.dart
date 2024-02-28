@@ -1,10 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../../model/news.dart';
+import '../../../model/news_response/news.dart';
 
 class NewsWidget extends StatelessWidget {
   NewsWidget({required this.news, super.key});
+
   News news;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -13,24 +16,30 @@ class NewsWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
-                news.image,
-                height: 300,
-                width: double.infinity,
-                fit: BoxFit.fill,
-              )),
+            borderRadius: BorderRadius.circular(10),
+            child: CachedNetworkImage(
+              imageUrl: news.urlToImage ?? "",
+              height: 300,
+              width: double.infinity,
+              fit: BoxFit.fill,
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  Center(
+                      child: CircularProgressIndicator(
+                          value: downloadProgress.progress)),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+            ),
+          ),
           Text(
-            news.title,
+            news.title ?? "",
             textAlign: TextAlign.start,
             style: const TextStyle(fontSize: 18),
           ),
           Text(
-            news.author,
+            news.author ?? "",
             textAlign: TextAlign.start,
             style: const TextStyle(fontSize: 16),
           ),
-          Text(news.date, textAlign: TextAlign.end),
+          Text(news.publishedAt ?? "", textAlign: TextAlign.end),
         ],
       ),
     );

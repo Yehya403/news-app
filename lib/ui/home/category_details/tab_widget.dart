@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../../model/source.dart';
+import '../../../model/sources_response/source.dart';
 
 class TabWidget extends StatelessWidget {
   TabWidget({required this.source, required this.isSelected, super.key});
+
   Source source;
   bool isSelected;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,7 +20,7 @@ class TabWidget extends StatelessWidget {
           ),
           color: isSelected ? Theme.of(context).primaryColor : Colors.white),
       child: Text(
-        source.title,
+        source.name ?? "",
         style: TextStyle(
           color: isSelected ? Colors.white : Theme.of(context).primaryColor,
         ),

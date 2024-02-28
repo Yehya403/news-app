@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:news_app/ui/home/news/news_list_widget.dart';
 import 'package:news_app/ui/home/category_details/tab_widget.dart';
 
-import '../../../model/source.dart';
+import '../../../model/sources_response/source.dart';
 
 class SourcesTabsWidget extends StatefulWidget {
   SourcesTabsWidget(this.sources, {super.key});
+
   List<Source> sources;
 
   @override
