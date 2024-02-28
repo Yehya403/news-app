@@ -11,8 +11,8 @@ class CategoryWidget extends StatelessWidget {
       decoration: BoxDecoration(
           color: category.color,
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(18),
-            topRight: Radius.circular(18),
+            topLeft: const Radius.circular(18),
+            topRight: const Radius.circular(18),
             bottomRight: Radius.circular(index.isEven ? 0 : 18),
             bottomLeft: Radius.circular(index.isEven ? 18 : 0),
           )),
