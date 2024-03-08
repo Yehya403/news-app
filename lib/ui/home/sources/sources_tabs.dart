@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/ui/home/news/news_list_widget.dart';
-import 'package:news_app/ui/home/category_details/tab_widget.dart';
+import 'package:news_app/ui/home/news/news_list.dart';
+import 'package:news_app/ui/home/sources/sources_tabs_item.dart';
+import '../../../data/model/sources_response/source.dart';
 
-import '../../../model/sources_response/source.dart';
+class SourcesTabs extends StatefulWidget {
+  const SourcesTabs(this.sources, {super.key});
 
-class SourcesTabsWidget extends StatefulWidget {
-  SourcesTabsWidget(this.sources, {super.key});
-
-  List<Source> sources;
+  final List<Source> sources;
 
   @override
-  State<SourcesTabsWidget> createState() => _SourcesTabsWidgetState();
+  State<SourcesTabs> createState() => _SourcesTabsState();
 }
 
-class _SourcesTabsWidgetState extends State<SourcesTabsWidget> {
+class _SourcesTabsState extends State<SourcesTabs> {
   int selectedIndex = 0;
 
   @override
@@ -34,14 +33,14 @@ class _SourcesTabsWidgetState extends State<SourcesTabsWidget> {
             },
             isScrollable: true,
             tabs: widget.sources
-                .map((source) => TabWidget(
+                .map((source) => SourcesTabsItem(
                     source: source,
                     isSelected:
                         widget.sources.indexOf(source) == selectedIndex))
                 .toList(),
           ),
           Expanded(
-            child: NewsListWidget(
+            child: NewsList(
               source: widget.sources[selectedIndex],
             ),
           ),

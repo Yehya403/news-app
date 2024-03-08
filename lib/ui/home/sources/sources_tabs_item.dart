@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import '../../../data/model/sources_response/source.dart';
 
-import '../../../model/sources_response/source.dart';
-
-class TabWidget extends StatelessWidget {
-  TabWidget({required this.source, required this.isSelected, super.key});
+class SourcesTabsItem extends StatelessWidget {
+  SourcesTabsItem({required this.source, required this.isSelected, super.key});
 
   Source source;
   bool isSelected;

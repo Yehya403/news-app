@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-
-import '../../../model/category.dart';
-import 'category_widget.dart';
+import '../../../data/model/category.dart';
+import 'category_item.dart';
 
 typedef OnCategoryClick = void Function(Category category);
 
 class CategoriesFragment extends StatelessWidget {
   OnCategoryClick onCategoryClick;
+
   CategoriesFragment({required this.onCategoryClick, super.key});
+
   List<Category> categories = Category.getAllCategoryItems();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,7 +38,7 @@ class CategoriesFragment extends StatelessWidget {
                     onCategoryClick(categories[index]);
                   },
                   child:
-                      CategoryWidget(category: categories[index], index: index),
+                      CategoryItem(category: categories[index], index: index),
                 );
               },
               itemCount: categories.length,

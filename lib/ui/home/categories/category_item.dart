@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/model/category.dart';
+import '../../../data/model/category.dart';
 
-class CategoryWidget extends StatelessWidget {
-  CategoryWidget({required this.category, required this.index, super.key});
+class CategoryItem extends StatelessWidget {
+  CategoryItem({required this.category, required this.index, super.key});
+
   Category category;
   int index;
+
   @override
   Widget build(BuildContext context) {
     return Container(
