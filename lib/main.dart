@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:news_app/ui/home/home_screen.dart';
 import 'package:news_app/ui/my_theme_data.dart';
 
+import 'di/di.dart';
+
 void main() {
+  configureDependencies();
   runApp(const MyApp());
 }
 

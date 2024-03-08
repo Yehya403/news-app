@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/ui/home/home_drawer.dart';
 import 'package:news_app/ui/home/settings/settings_fragment.dart';
-
-import '../../model/category.dart';
+import '../../data/model/category.dart';
 import 'categories/categories_fragment.dart';
 import 'category_details/category_details.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
   static const routeName = 'HomeSc';
 
   @override

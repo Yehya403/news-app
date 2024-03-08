@@ -1,38 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/di/di.dart';
-import 'package:news_app/ui/home/sources/sources_tabs.dart';
-import '../../../data/model/category.dart';
-import 'category_details_view_model.dart';
+import 'package:news_app/ui/home/news/news_item.dart';
+import '../../../data/model/sources_response/source.dart';
+import 'news_list_view_model.dart';
 
-class CategoryDetails extends StatefulWidget {
-  final Category category;
+class NewsList extends StatefulWidget {
+  const NewsList({required this.source, super.key});
 
-  const CategoryDetails(this.category, {super.key});
+  final Source source;
 
   @override
-  State<CategoryDetails> createState() => _CategoryDetailsState();
+  State<NewsList> createState() => _NewsListState();
 }
 
-class _CategoryDetailsState extends State<CategoryDetails> {
-  var viewModel = getIt.get<CategoryDetailsViewModel>();
+class _NewsListState extends State<NewsList> {
+  //Field Injection
+  var viewModel = getIt.get<NewsListViewModel>();
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    viewModel.getSources(widget.category.id);
+    viewModel.getNews(widget.source.id ?? "");
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CategoryDetailsViewModel, CategoryDetailsState>(
+    return BlocBuilder<NewsListViewModel, NewsListState>(
       bloc: viewModel,
       builder: (context, state) {
         switch (state) {
           case SuccessState():
             {
-              var sourcesList = state.sourcesList;
-              return SourcesTabs(sourcesList);
+              var newsList = state.newsList;
+              return ListView.builder(
+                itemBuilder: (context, index) {
+                  return NewsItem(news: newsList![index]);
+                },
+                itemCount: newsList?.length ?? 0,
+              );
             }
           case LoadingState():
             {
@@ -52,7 +59,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                     Text(state.errorMessage),
                     ElevatedButton(
                       onPressed: () {
-                        viewModel.getSources(widget.category.id);
+                        viewModel.getNews(widget.source.id ?? "");
                       },
                       child: const Text('Try again'),
                     ),
