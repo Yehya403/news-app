@@ -15,25 +15,31 @@ class NewsList extends StatefulWidget {
 }
 
 class _NewsListState extends State<NewsList> {
-  //Field Injection
+  // Field Injection
   var viewModel = getIt.get<NewsListViewModel>();
+  late String sourceId;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    viewModel.getNews(widget.source.id ?? "");
+    sourceId = widget.source.id ?? "";
+    viewModel.getNews(sourceId);
   }
 
   @override
   Widget build(BuildContext context) {
+    if (sourceId != widget.source.id) {
+      sourceId = widget.source.id ?? "";
+      viewModel.getNews(sourceId);
+    }
+
     return BlocBuilder<NewsListViewModel, NewsListState>(
       bloc: viewModel,
       builder: (context, state) {
-        switch (state) {
-          case SuccessState():
+        switch (state.runtimeType) {
+          case SuccessState:
             {
-              var newsList = state.newsList;
+              var newsList = (state as SuccessState).newsList;
               return ListView.builder(
                 itemBuilder: (context, index) {
                   return NewsItem(news: newsList![index]);
@@ -41,31 +47,20 @@ class _NewsListState extends State<NewsList> {
                 itemCount: newsList?.length ?? 0,
               );
             }
-          case LoadingState():
-            {
-              return Center(
-                  child: Column(
-                children: [
-                  Text(state.message),
-                  const CircularProgressIndicator(),
-                ],
-              ));
-            }
-          case ErrorState():
+          case LoadingState:
             {
               return Center(
                 child: Column(
                   children: [
-                    Text(state.errorMessage),
-                    ElevatedButton(
-                      onPressed: () {
-                        viewModel.getNews(widget.source.id ?? "");
-                      },
-                      child: const Text('Try again'),
-                    ),
+                    Text((state as LoadingState).message),
+                    const CircularProgressIndicator(),
                   ],
                 ),
               );
+            }
+          default:
+            {
+              return Container(); // Return whatever appropriate when state is not recognized
             }
         }
       },

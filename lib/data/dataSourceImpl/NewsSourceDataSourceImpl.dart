@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:news_app/data/api/api_manager/api_manager.dart';
+import 'package:news_app/data/api_manager.dart';
 import 'package:news_app/data/model/sources_response/source.dart';
 import '../dataSourceContract/NewsSourceDataSource.dart';
 

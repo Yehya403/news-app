@@ -11,7 +11,7 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
-import '../data/api/api_manager/api_manager.dart' as _i3;
+import '../data/api_manager.dart' as _i3;
 import '../data/dataSourceContract/NewsDataSource.dart' as _i4;
 import '../data/dataSourceContract/NewsSourceDataSource.dart' as _i8;
 import '../data/dataSourceImpl/NewsDataSourceImpl.dart' as _i5;
@@ -34,7 +34,8 @@ extension GetItInjectableX on _i1.GetIt {
       environment,
       environmentFilter,
     );
-    gh.singleton<_i3.ApiManager>(gh<_i3.ApiManager>());
+
+    gh.singleton<_i3.ApiManager>(_i3.ApiManager());
     gh.factory<_i4.NewsDataSource>(
         () => _i5.NewsDataSourceImpl(gh<_i3.ApiManager>()));
     gh.factory<_i6.NewsRepository>(
