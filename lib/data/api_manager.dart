@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
-import '../../model/news_response/news_response.dart';
-import '../../model/sources_response/sources_response.dart';
+import 'model/news_response/news_response.dart';
+import 'model/sources_response/sources_response.dart';
 
 @singleton
+@injectable
 class ApiManager {
   static const baseUrl = 'newsapi.org';
-  static const apiKey = 'da403a8b94b040c186fb01209333c86d';
+  static const apiKey = '26e4372b3a714a0fba2aa7020ba55c46';
 
   Future<SourcesResponse> getSources(String? categoryId) async {
     var uri = Uri.https(baseUrl, '/v2/top-headlines/sources',
